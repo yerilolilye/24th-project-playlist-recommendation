@@ -1,11 +1,12 @@
 import pandas as pd
 import json
 
-def read_json(path):
-    with open(path, 'r',encoding='cp949') as f:
-        json_objects = [json.loads(line) for line in f]
-        json_objects = pd.DataFrame(json_objects)
-    return json_objects.to_dict('records')
+path = './data/keyword.json'
 
-df = read_json('data/output_clustered.json')
-print(df)
+def load_keyword(path):
+    with open(path,'r',encoding='utf-8') as f:
+        keywords = [json.loads(line) for line in f]
+    return keywords
+
+df = load_keyword(path)
+print(df[0])
