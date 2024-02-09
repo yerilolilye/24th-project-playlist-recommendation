@@ -1,0 +1,40 @@
+/mnt/c/Users/yelin/Documents/GitHub/PersonalizedRG/24th-project-playlist-recommendation/python_files/playlist_recommendation.py:3: DeprecationWarning: 
+Pyarrow will become a required dependency of pandas in the next major release of pandas (pandas 3.0),
+(to allow more performant data types, such as the Arrow string type, and better interoperability with other libraries)
+but was not found to be installed on your system.
+If this would cause problems for you,
+please provide us feedback at https://github.com/pandas-dev/pandas/issues/54466
+        
+  import pandas as pd
+**** Loading song data ... ****
+**** Loading keyword input ****
+**** Sorting Songs by Clusters ... ****
+
+  0%|          | 0/5 [00:00<?, ?it/s]
+100%|██████████| 5/5 [00:00<00:00, 150874.24it/s]
+**** Sorting completed !!! ****
+**** Random Sampling from each cluster ... ****
+**** random sampling done ****
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00, 37117.73it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00, 26715.31it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00, 31775.03it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00, 30393.51it/s]
+
+  0%|          | 0/1 [00:00<?, ?it/s]
+100%|██████████| 1/1 [00:00<00:00, 28339.89it/s]
+
+#############################################
+  RECOMMENDED PLAYLIST: 
+
+   track_name artist_name  predicted_score
+0  Bludsteroo       Friox         0.962683
+
+#############################################
