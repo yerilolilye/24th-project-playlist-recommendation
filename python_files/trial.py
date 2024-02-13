@@ -15,7 +15,7 @@ model_name='Ehsanl/Roberta-DNLI'
 key_data = './data/keyword.json'
 song_data = './data/final_dataset.json'
 n_cluster = 10 
-n_sample = 10
+n_sample = 1
 n_songs= 20
 
 
@@ -84,7 +84,7 @@ def pick_random_sample(cluster,n_sample):
 
 def load_model(model):
     tokenizer = AutoTokenizer.from_pretrained(model)
-    model = pipeline("text-classification", model=model,device="cpu")
+    model = pipeline("text-classification", model=model,device="cpu",function_to_apply='softmax')
     return model, tokenizer
 
 
@@ -123,7 +123,7 @@ def model_scoring(keywords, song_list, model, tokenizer):
                'lyrics': lyrics,
                'predicted_label': output['label'],
                'predicted_score': output['score']}
-    output_dic.append(dic)
+        output_dic.append(dic)
 
     return output_dic
 
@@ -155,10 +155,8 @@ def select_cluster(random_samples,keywords,model,tokenizer):
 
 
 def playlist_recommendation(output_dic, n_songs):
-
     df = pd.DataFrame(output_dic)
     df_ent = df[ df['predicted_label']=='ENTAILMENT' ]
-    print(df_ent)
     playlist_df = df_ent[['track_name','artist_name','predicted_score']].sort_values(by=['predicted_score'],ascending=False)
     
     if len(playlist_df)<=n_songs:
