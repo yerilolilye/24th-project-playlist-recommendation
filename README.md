@@ -1,19 +1,18 @@
 # 책 기반 플레이리스트 추천
-
-## Currently...
-- spotify api 활용하여 음악 데이터셋 구성 중
-- 사용자로부터 책 정보를 input으로 받는 크롤러 코드 작성 예정
-- sample data 기반으로 playlist 추출하는 코드 작성 완료
-    - 결과 샘플은 `./sample_result.txt`에서 확인 가능합니다
-    - 참고로 데이터 샘플 5개(음악 데이터 가사 & 키워드는 제가 임의로 아무거나 추가했어요)로만 테스트해봐서 결과는 1개만 출력됨
-    - 코드 잘 돌아가는지만 확인한거라 결과가 괜찮게 나오는지는 음악 데이터 구축하고 그걸로 확인해봐야할듯!
   
 ## HOW TO
-플레이리스트 추출을 위해서는 './scripts/playlist_recommendation.sh' 파일의 arguments를 수정한 후, linux 터미널에 다음을 입력하세요
+플레이리스트 추출을 로컬에서 실행하기 위해서는 
+- 필요한 패키지를 설치하고 
+- 현재 디렉토리에 output 폴더가 생성되어 있는지 먼저 확인 후
 
-    sh ./scripts/playlist_recommendation.sh
+터미널에 다음을 입력하세요.
 
-만약 GPU를 사용할 경우 다음을 입력하면 됩니다.
+    python ./python_files/playlist.py
 
-    CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 sh ./scripts/playlist_recommendation.sh 
+
+## 결과
+결과는 다음 경로에 저장됩니다.
+
+    output/{YOUR_PLAYLIST}.csv
+    output/{YOUR_PLAYLIST}.html
 
