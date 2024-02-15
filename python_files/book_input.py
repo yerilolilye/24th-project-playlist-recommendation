@@ -60,16 +60,15 @@ def keybert_infernece(results):
     kw_model = KeyBERT(model='paraphrase-multilingual-MiniLM-L12-v2')
     keywords = kw_model.extract_keywords(book_keyword, keyphrase_ngram_range=(1, 1),
                                          use_mmr=True, diversity=0.3, top_n=10, stop_words=None)
-    keyword_text = [keyword[0] for keyword in keywords]
-    keyword_json = {"keywords": keyword_text}
+    keywords_text = ' '.join([keyword[0] for keyword in keywords])
 
-    return keyword_json
+    return keywords_text
 
 # 메인
 def keyword_extraction():
 
     book_text = book_crawling()
     results = main_extractor(book_text)
-    keyword_json = keybert_infernece(results)
+    keywords_test = keybert_infernece(results)
 
-    return keyword_json
+    return keywords_test
