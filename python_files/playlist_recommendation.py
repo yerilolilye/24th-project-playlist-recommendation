@@ -127,7 +127,7 @@ def model_scoring(keywords, song_list, model, tokenizer):
                'lyrics': lyrics,
                'predicted_label': output['label'],
                'predicted_score': output['score']}
-    output_dic.append(dic)
+        output_dic.append(dic)
 
     return output_dic
 

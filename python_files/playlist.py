@@ -10,18 +10,19 @@ import torch
 from transformers import AutoTokenizer, pipeline
 
 
-set_dir='C:/Users/yelin/Documents/GitHub/Ybigta_assignment/24th-project-playlist-recommendation'
+set_dir='.'
+output_dir = './output/'
+filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
 key_data = './data/keyword.json'
 song_data = './data/final_dataset.json'
-n_cluster = 10 
-n_sample = 1
-n_songs= 20
+n_cluster = 10
+n_sample = 3
+n_songs= 10
 
 
 def read_json(path):
     json_objects = pd.read_json(path,encoding='utf-8')
-    print(json_objects)
     return json_objects.to_dict('records')
 
 
@@ -84,7 +85,7 @@ def pick_random_sample(cluster,n_sample):
 
 def load_model(model):
     tokenizer = AutoTokenizer.from_pretrained(model)
-    model = pipeline("text-classification", model=model,device="cpu",function_to_apply='softmax')
+    model = pipeline("text-classification", model=model,device="cpu")
     return model, tokenizer
 
 
@@ -108,14 +109,13 @@ def model_scoring(keywords, song_list, model, tokenizer):
         artist_name.append(song['artist_name'])
         lyrics.append(song['lyrics'])
         keyword_lst.append(keywords)
-        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200] ##일단 가사 100글자만 잘라서...
+        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200] ##일단 가사 200글자만 잘라서...
         inputs.append(input)
 
 
     # model infernece
     outputs = model(inputs)
     output_dic = []
-    print(outputs)
     for keyword, track_name, artist_name, output in zip(keyword_lst, track_name, artist_name, outputs):
         dic = {'track_name': track_name,
                'artist_name': artist_name,
@@ -150,8 +150,11 @@ def select_cluster(random_samples,keywords,model,tokenizer):
             score = np.mean(score)
 
         mean_score[n] = score
+
+    result = max(mean_score,key=mean_score.get)
+    print("****{}th cluster selected ****".format(result))
         
-    return max(mean_score,key=mean_score.get) # mean score가 가장 높은 cluster number 리턴
+    return result # mean score가 가장 높은 cluster number 리턴
 
 
 def playlist_recommendation(output_dic, n_songs):
@@ -167,8 +170,13 @@ def playlist_recommendation(output_dic, n_songs):
     return result
 
 
-#TODO??
-'''def save_results:'''
+def save_results(playlist, output_dir,filename):
+    html_path = output_dir + filename + '.html'
+    csv_path = output_dir + filename + '.csv'
+    playlist.to_html(html_path)
+    playlist.to_csv(csv_path)
+    print('**** file saved in {} ****'.format(html_path[:-5]))
+
 
 
 def main():
@@ -197,8 +205,11 @@ def main():
     playlist = playlist_recommendation(output_dic=output_dic, n_songs=n_songs)
 
     print('\n#############################################\n  RECOMMENDED PLAYLIST: \n')
+    print('keywords : {}'.format(keywords))
     print(playlist)
     print('\n#############################################')
+
+    save_results(playlist=playlist,output_dir=output_dir,filename=filename)
 
 
 if __name__ == '__main__':
