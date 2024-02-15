@@ -1,0 +1,101 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.container h2 {
+  width:100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.react-player, .Playlist{
+  flex: 1 1 300px;
+  min-width: 300px;
+}
+
+.Playlist {
+  margin-left: 20px;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  padding-top: 0px;
+  background-color :white;
+  border-radius: 5px;
+}
+
+.play {
+  color: #4CAF50;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.items {
+  max-height: 280px;
+  overflow-y: auto;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.item-index {
+  font-weight : bold;
+  font-size: 18px;
+}
+
+.track {
+  font-weight: bold;
+  font-size : 16px;
+}
+
+.artist {
+  font-weight: 300;
+  font-size: 13px;
+}
+.item:hover {
+  background-color: #e2e2e2;
+}
+
+.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+  .react-player, .Playlist {
+    margin-left: 0;
+    margin-top: 20px;
+    flex-basis: auto;
+  }
+
+}
