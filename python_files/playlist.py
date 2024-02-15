@@ -64,6 +64,7 @@ def pick_random_sample(cluster,n_sample):
 
     random_samples = {}
     for i in range(len(cluster)):
+        random.seed(42)
         random_sample = random.choices(cluster[i], k=n_sample)
         random_samples[i] = random_sample
     print('**** random sampling done ****')
