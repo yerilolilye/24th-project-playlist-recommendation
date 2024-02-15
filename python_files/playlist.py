@@ -1,4 +1,3 @@
-# ./scripts/cluster_retrieval.sh 파일 실행해서 분류
 import os
 import pandas as pd
 import numpy as np
@@ -8,13 +7,13 @@ import argparse
 from tqdm import tqdm
 import torch
 from transformers import AutoTokenizer, pipeline
+from book_input import *
 
 
 set_dir='.'
 output_dir = './output/'
 filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
-key_data = './data/keyword.json'
 song_data = './data/final_dataset.json'
 n_cluster = 10
 n_sample = 3
@@ -51,19 +50,8 @@ def group_by_cluster(songs, n_cluster):
     return cluster 
 
 
-def load_keyword(key_data):
-    '''
-    keyword file format이 리스트 한줄짜리 json이라고 가정
-    input format : {"keywords":["줄거리키워드1","줄거리키워드2"]}
-    output format : "줄거리키워드1 줄거리키워드2"
-    
-    ### book crawler 완성 이후 input() 함수로 사용자에게 input 받게끔 수정 ###
-    '''
-    print('**** Loading keyword input ****')
-    with open(key_data,'r',encoding='utf-8') as f:
-        keywords = [json.loads(line) for line in f]
-        keywords = ' '.join(keywords[0]['keywords'])
-
+def load_keyword():
+    keywords = keyword_extraction()
     return keywords # dtype: str
 
 
@@ -187,7 +175,7 @@ def main():
 
     # Load song & keyword data
     songs = load_songs(song_data)
-    keywords = load_keyword(key_data)
+    keywords = load_keyword()
 
     # cluster selection
     cluster = group_by_cluster(songs, n_cluster)
