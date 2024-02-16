@@ -1,4 +1,5 @@
 import re
+import sys
 import requests
 from bs4 import BeautifulSoup
 
@@ -6,8 +7,8 @@ from keybert import KeyBERT
 from kiwipiepy import Kiwi
 
 # 크롤링 함수
-def book_crawling():
-    url = input('도서 구매 사이트 url를 입력하세요(yes24): ')
+def book_crawling(site):
+    url = site
     if url.startswith('https://www.yes24.com'):
         res = requests.get(url)
         soup = BeautifulSoup(res.content, 'html.parser')
@@ -52,9 +53,9 @@ def keybert_infernece(results):
     return keywords
 
 # 메인
-def keyword_extraction():
+def keyword_extraction(site):
 
-    book_text = book_crawling()
+    book_text = book_crawling(site)
     results = main_extractor(book_text)
     keywords = keybert_infernece(results)
 
