@@ -1,3 +1,4 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -10,11 +11,18 @@ def book_crawling():
     if url.startswith('https://www.yes24.com'):
         res = requests.get(url)
         soup = BeautifulSoup(res.content, 'html.parser')
-        book = soup.find_all(class_="infoWrap_txtInner")
-        book_inside = book[1]
-        book_text = ''
-        for txt in book_inside:
-            book_text += txt.text
+        book_inside = soup.find('div', {'id': 'infoset_inBook'})
+        book_review = soup.find('div', {'id': 'infoset_pubReivew'})
+        book_intro = soup.find('div', {'id': 'infoset_introduce'})
+        if book_inside is not None:
+            book_text = book_inside.find('div', {'class': 'infoWrap_txt'}).text
+        elif book_review is not None:
+            book_text = book_review.find('div', {'class': 'infoWrap_txt'}).text
+        elif book_intro is not None:
+            book_text = book_intro.find('div', {'class': 'infoWrap_txt'}).text
+        else:
+            print('해당 사이트에서 책 정보를 찾을 수 없습니다.')
+        book_text = re.sub(r'\n|\r|\t', '', book_text)
     else:
         print('지원하지 않는 도서 구매 사이트입니다.')
 
