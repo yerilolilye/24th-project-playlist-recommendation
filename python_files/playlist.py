@@ -1,4 +1,5 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 import random
@@ -165,7 +166,7 @@ def save_results(playlist, output_dir,filename):
 
 
 
-def main():
+def main(site):
 
     os.chdir(set_dir)
 
@@ -173,7 +174,7 @@ def main():
 
     # Load song & keyword data
     songs = load_songs(song_data)
-    keywords = load_keyword()
+    keywords = load_keyword(site)
 
     # cluster selection
     cluster = group_by_cluster(songs, n_cluster)
@@ -195,8 +196,7 @@ def main():
     print(playlist)
     print('\n#############################################')
 
-    save_results(playlist=playlist,output_dir=output_dir,filename=filename)
 
 
-if __name__ == '__main__':
-    main()
+site = sys.argv[1]
+main(site)
