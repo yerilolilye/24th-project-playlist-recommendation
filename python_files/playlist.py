@@ -6,13 +6,14 @@ import random
 from tqdm import tqdm
 from transformers import AutoTokenizer, pipeline
 from book_input import *
+import time
 
 
 set_dir='.'
 output_dir = './output/'
 filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
-song_data = '.data/Real_Final_Data_set.json'
+song_data = "/Users/prodo/OneDrive/바탕 화면/final_dataset.json"
 n_cluster = 10
 n_sample = 3
 n_songs= 10
@@ -77,6 +78,7 @@ def load_model(model):
 
 
 def model_scoring(keywords, song_list, model, tokenizer):
+    print('model scoring')
     '''
     keyword와 각각의 song의 가사를 짝지어 데이터셋 구축
         - cluster selection 단계: song_list = random_samples[n]
@@ -90,16 +92,18 @@ def model_scoring(keywords, song_list, model, tokenizer):
     track_name = []
     artist_name = []
     lyrics = []
-
+    song_list = random.sample(song_list, min(50, len(song_list)))
     for song in tqdm(song_list):
         track_name.append(song['track_name'])
         artist_name.append(song['artist_name'])
         lyrics.append(song['lyrics'])
         keyword_lst.append(keywords)
-        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200] ##일단 가사 200글자만 잘라서...
+        if len(song_list) > 10:
+            input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:50] ##일단 가사 200글자만 잘라서...
+        else:
+            input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200] ##일단 가사 200글자만 잘라서...
         inputs.append(input)
-
-
+    model_scoring_start = time.time()
     # model infernece
     outputs = model(inputs)
     output_dic = []
@@ -111,13 +115,15 @@ def model_scoring(keywords, song_list, model, tokenizer):
                'predicted_label': output['label'],
                'predicted_score': output['score']}
         output_dic.append(dic)
-
+    model_scoring_end = time.time()
+    print('model_scoring',model_scoring_end-model_scoring_start)
     return output_dic
 
 
 def select_cluster(random_samples,keywords,model,tokenizer):
     mean_score = {}
-
+    print('select_cluster')
+    select_cluster_start = time.time()
     # 각 cluster별로 다음을 시행
     for n in range(len(random_samples)):
         output_dic = model_scoring(keywords=keywords,
@@ -140,11 +146,14 @@ def select_cluster(random_samples,keywords,model,tokenizer):
 
     result = max(mean_score,key=mean_score.get)
     print("****{}th cluster selected ****".format(result))
-        
+    select_cluster_end = time.time()
+    print('select cluster', select_cluster_end - select_cluster_start)
     return result # mean score가 가장 높은 cluster number 리턴
 
 
 def playlist_recommendation(output_dic, n_songs):
+    print('playlist_recommendation')
+    playlist_recommendation_start = time.time()
     df = pd.DataFrame(output_dic)
     df_ent = df[ df['predicted_label']=='ENTAILMENT' ]
     playlist_df = df_ent[['track_name','artist_name','predicted_score']].sort_values(by=['predicted_score'],ascending=False)
@@ -153,7 +162,8 @@ def playlist_recommendation(output_dic, n_songs):
         result = playlist_df
     else:
         result = playlist_df.iloc[:n_songs,:]
-
+    playlist_recommendation_end = time.time()
+    print('playlistrecommendation',playlist_recommendation_end - playlist_recommendation_start)
     return result
 
 
@@ -195,7 +205,6 @@ def main(site):
     print('keywords : {}'.format(keywords))
     print(playlist)
     print('\n#############################################')
-
 
 
 #site = sys.argv[1]
