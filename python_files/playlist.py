@@ -12,7 +12,7 @@ set_dir='.'
 output_dir = './output/'
 filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
-song_data = './data/final_dataset.json'
+song_data = '.data/Real_Final_Data_set.json'
 n_cluster = 10
 n_sample = 3
 n_songs= 10
@@ -48,8 +48,8 @@ def group_by_cluster(songs, n_cluster):
     return cluster 
 
 
-def load_keyword():
-    keywords = keyword_extraction()
+def load_keyword(site):
+    keywords = keyword_extraction(site)
     return keywords # dtype: str
 
 
@@ -198,5 +198,5 @@ def main(site):
 
 
 
-site = sys.argv[1]
-main(site)
+#site = sys.argv[1]
+main('https://www.yes24.com/Product/Goods/124720040')
