@@ -29,7 +29,7 @@ app.post('/runPythonScript', (req, res) => {
 
 function runPythonScriptSync(inputData) {
   try {
-    const stdout = execSync(`python3 /home/dragonleedaniel0401/backend/src/trial.py ${inputData}`);
+    const stdout = execSync(`python3 /home/dragonleedaniel0401/backend/src/logic/python_files/playlist.py ${inputData}`);
     return stdout.toString();
   } catch (error) {
     throw error;

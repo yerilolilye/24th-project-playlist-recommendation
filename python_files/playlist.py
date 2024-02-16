@@ -12,7 +12,7 @@ set_dir='.'
 output_dir = './output/'
 filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
-song_data = '.data/Real_Final_Data_set.json'
+song_data = 'C:/Users/prodo/OneDrive/문서/GitHub/24th-project-playlist-recommendation/data/final_dataset.json'
 n_cluster = 10
 n_sample = 3
 n_songs= 10
@@ -96,7 +96,7 @@ def model_scoring(keywords, song_list, model, tokenizer):
         artist_name.append(song['artist_name'])
         lyrics.append(song['lyrics'])
         keyword_lst.append(keywords)
-        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200] ##일단 가사 200글자만 잘라서...
+        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:50] ##일단 가사 200글자만 잘라서...
         inputs.append(input)
 
 
