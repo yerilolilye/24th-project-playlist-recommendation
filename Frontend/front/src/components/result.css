@@ -1,0 +1,246 @@
+@font-face {
+  font-family: 'CWDangamAsac-Bold';
+  src: url("./fonts/ChangwonDangamAsac-Bold_0712.ttf") format("truetype");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url("./fonts/Pretendard-Regular.otf") format("opentype");
+  font-style: normal;
+}
+
+
+
+.result-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:20px;
+}
+
+
+.total {
+  display: flex;
+  flex-direction:row;
+  gap: 20px;
+}
+
+.logo-image{
+    width: 40px; 
+    margin-right: 0.2rem; /* 로고와 텍스트 사이 여백 */
+}
+
+.service-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem; 
+  font-family: 'CWDangamAsac-Bold';
+}
+
+hr {
+  width: 1400px;
+  border: none;
+  height: 1px;
+  background-color: #dcdcdc;
+}
+
+.total {
+  display: flex;
+  align-items: start; 
+  width: 100%;
+  max-width: 1200px; 
+  margin: auto; 
+}
+
+
+.playlist-info-box {
+  padding-top: 3px;
+  background-color: #fff;
+  box-shadow: -3px -3px 3px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  position:relative;
+  flex-direction: column;
+}
+
+
+h2{
+  margin-block-end: 0;
+  margin-block-start: 0;
+  font-size: 3rem;
+}
+
+h4{
+  margin:0;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  font-family: 'Pretendard-Regular';
+}
+
+.detail {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.go-back-button {
+  padding: 10px 20px;
+  margin: 20px;
+  background-color: #79d1c3;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Pretendard-Regular';
+}
+
+.music-icon-container {
+  position: relative;
+}
+
+.music-icon {
+  position: absolute;
+  font-size: 2rem; 
+  top: 15px; 
+  margin-left: 2px;
+}
+
+.book-title,
+.keywords {
+  margin-bottom: 10px;
+  margin-left: 50px;
+}
+
+.book-title{
+  font-size: 1.3rem;
+  font-family: 'Pretendard-Regular';
+}
+
+.innerline{
+  width: 100%;
+}
+
+.playlist-box {
+  background-color:  #f7f7f7;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  position: relative; 
+  padding-bottom: 0px;
+  margin-bottom:25px;
+}
+
+.songs-list-container {
+  background-color: white;
+  box-shadow: -3px 3px 3px 3px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.songs-list {
+  max-height: 50vh; 
+  overflow-y: auto; 
+}
+
+.song-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-family: 'Pretendard-Regular';
+}
+
+.song {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0; 
+  font-family: 'Pretendard-Regular';
+}
+.keyword {
+  background-color: #eef;
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 5px;
+  font-family: 'Pretendard-Regular';
+  display: inline-block;
+}
+.song > .track-name {
+  flex: 1.5;
+  text-align: left;
+}
+
+.song > .artist-name {
+  flex: 1;
+  text-align: left;
+}
+
+.song > .predicted-name {
+  flex: 1;
+  text-align: right;
+}
+
+.song-header > .track-name {
+  flex: 1;
+  text-align: left;
+}
+
+.song-header > .artist-name {
+  flex: 1;
+  text-align: left;
+}
+
+.song-header > .predicted-name {
+  flex: 1;
+  text-align: right;
+}
+@media (max-width: 600px) {
+  .service-title {
+    font-size: 1rem;
+  }
+  
+  .playlist-box, .songs-list-container {
+    width: 100%; 
+  }
+
+  .hr {
+    width: 100%; 
+  }
+}
+
+@media (min-width: 1280px) {
+  .result-page{
+    height: 100vh;
+  }
+  .service-title {
+    font-size: 1.8rem; 
+    height: 80%;
+  }
+
+  .total{
+    display:flex;
+    justify-content: center;
+    height: 80%;
+  }
+
+  .playlist-box, .songs-list-container {
+    width: 100%; 
+    margin: auto; 
+  }
+
+  .playlist-box{
+    margin-bottom: 20px;
+  }
+
+  .playlist-info-box, .songs-list-container {
+    margin: auto; 
+  }
+
+  .playlist-info-box, .songs-list {
+    height: auto; 
+  }
+}
