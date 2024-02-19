@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 import pandas as pd
@@ -10,16 +11,18 @@ import torch
 from transformers import AutoTokenizer, pipeline
 from book_input import *
 
+if sys.version_info.major == 3:
+    sys.stdout.reconfigure(encoding='utf-8')
+
 
 set_dir='.'
 output_dir = './output/'
 filename = 'playlist'
 model_name='Ehsanl/Roberta-DNLI'
-song_data = '/home/dragonleedaniel0401/backend/src/logic/data/final_dataset.json'
+song_data = "/home/dragonleedaniel0401/Backend/backend/src/logic/data/final_dataset.json"
 n_cluster = 10
 n_sample = 3
 n_songs= 10
-
 
 def read_json(path):
     json_objects = pd.read_json(path,encoding='utf-8')
@@ -27,7 +30,6 @@ def read_json(path):
 
 
 def load_songs(song_data):
-    print('**** Loading song data ... ****')
     songs = read_json(song_data)
     return songs
 
@@ -37,23 +39,21 @@ def group_by_cluster(songs, n_cluster):
     songs 데이터를 cluster별로 분류
     return format: [[cluster_1],[cluster_2],...,[cluster_n]]
     '''
-    print('**** Sorting Songs by Clusters ... ****')
 
     cluster = []
     for n in range(n_cluster):
         cluster.append([])
   
-    for idx in tqdm(range(len(songs))):
+    for idx in range(len(songs)):
         song = songs[idx]
         cluster[song['cluster']].append(song)
     
-    print('**** Sorting completed !!! ****')
     return cluster 
 
 
 def load_keyword(site):
-    keywords = keyword_extraction(site)
-    return keywords # dtype: str
+    keywords, book_title = keyword_extraction(site)
+    return keywords, book_title # dtype: str
 
 
 def pick_random_sample(cluster,n_sample):
@@ -61,14 +61,13 @@ def pick_random_sample(cluster,n_sample):
     각 cluster에서 랜덤으로 n개의 샘플 추출하여 리턴
     return format : { 1:[cluster_1_samples], ..., n:[cluster_n_samples] }
     '''
-    print('**** Random Sampling from each cluster ... ****')
 
     random_samples = {}
     for i in range(len(cluster)):
         random.seed(42)
         random_sample = random.choices(cluster[i], k=n_sample)
         random_samples[i] = random_sample
-    print('**** random sampling done ****')
+
     
     return random_samples
         
@@ -93,13 +92,16 @@ def model_scoring(keywords, song_list, model, tokenizer):
     track_name = []
     artist_name = []
     lyrics = []
-
-    for song in tqdm(song_list):
+    song_list = random.sample(song_list, min(50, len(song_list)))
+    for song in song_list:
         track_name.append(song['track_name'])
         artist_name.append(song['artist_name'])
         lyrics.append(song['lyrics'])
         keyword_lst.append(keywords)
-        input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:50] ##일단 가사 200글자만 잘라서...
+        if len(song_list)>10:
+            input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:50] ##일단 가사 200글자만 잘라서...
+        else:
+            input = keywords + ' ' + tokenizer.sep_token + ' ' + song['lyrics'][:200]
         inputs.append(input)
 
 
@@ -142,7 +144,6 @@ def select_cluster(random_samples,keywords,model,tokenizer):
         mean_score[n] = score
 
     result = max(mean_score,key=mean_score.get)
-    print("****{}th cluster selected ****".format(result))
         
     return result # mean score가 가장 높은 cluster number 리턴
 
@@ -165,7 +166,7 @@ def save_results(playlist, output_dir,filename):
     csv_path = output_dir + filename + '.csv'
     playlist.to_html(html_path)
     playlist.to_csv(csv_path)
-    print('**** file saved in {} ****'.format(html_path[:-5]))
+    
 
 
 
@@ -177,7 +178,7 @@ def main(site):
 
     # Load song & keyword data
     songs = load_songs(song_data)
-    keywords = load_keyword(site)
+    keywords, book_title = load_keyword(site)
 
     # cluster selection
     cluster = group_by_cluster(songs, n_cluster)
@@ -193,12 +194,20 @@ def main(site):
                   model=model,
                   tokenizer=tokenizer)
     playlist = playlist_recommendation(output_dic=output_dic, n_songs=n_songs)
+    data = {'book_title': book_title, 'track_name' : playlist['track_name'].tolist(), 
+            'artist_name' : playlist['artist_name'].tolist(),
+             'predicted_score': playlist['predicted_score'].tolist(),
+            'keywords' : keywords}
 
-    print('\n#############################################\n  RECOMMENDED PLAYLIST: \n')
-    print('keywords : {}'.format(keywords))
-    print(playlist)
-    print('\n#############################################')
+    # 디렉토리가 없으면 생성
+    output_directory = '/home/dragonleedaniel0401/Backend/backend/'
+    output_file_path = os.path.join(output_directory, 'result.json')
 
+    # Create the directory if it doesn't exist
+
+    with open(output_file_path, 'w', encoding="UTF-8") as f:
+        json.dump(data, f, ensure_ascii=False)
 
 inputData = sys.argv[1]
-main(inputData)
+
+main(inputData)  

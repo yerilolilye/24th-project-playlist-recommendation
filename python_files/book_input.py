@@ -12,6 +12,7 @@ def book_crawling(site):
     if url.startswith('https://www.yes24.com'):
         res = requests.get(url)
         soup = BeautifulSoup(res.content, 'html.parser')
+        book_title = soup.find('h2',class_ = 'gd_name' ).text
         book_inside = soup.find('div', {'id': 'infoset_inBook'})
         book_review = soup.find('div', {'id': 'infoset_pubReivew'})
         book_intro = soup.find('div', {'id': 'infoset_introduce'})
@@ -22,12 +23,10 @@ def book_crawling(site):
         elif book_intro is not None:
             book_text = book_intro.find('div', {'class': 'infoWrap_txt'}).text
         else:
-            print('해당 사이트에서 책 정보를 찾을 수 없습니다.')
+            True
         book_text = re.sub(r'\n|\r|\t', '', book_text)
-    else:
-        print('지원하지 않는 도서 구매 사이트입니다.')
 
-    return book_text
+    return book_text, book_title
 
 
 # 명사, 어근, 형용사 추출 함수
@@ -55,8 +54,8 @@ def keybert_infernece(results):
 # 메인
 def keyword_extraction(site):
 
-    book_text = book_crawling(site)
+    book_text, book_title = book_crawling(site)
     results = main_extractor(book_text)
     keywords = keybert_infernece(results)
 
-    return keywords
+    return keywords, book_title
