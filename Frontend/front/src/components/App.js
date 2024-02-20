@@ -14,7 +14,7 @@ export default function App() {
   const [result, setResult] = useState('');
 
   const handleRunPythonScript = async () => {
-    if (!inputText.startsWith('https://www.yes24.com/Product/Goods')) {
+    if (!(inputText.startsWith('https://www.yes24.com/Product/Goods') || inputText.startsWith('https://m.yes24.com/Goods/Detail'))) {
         setIsError(true); 
         return; 
       } 
