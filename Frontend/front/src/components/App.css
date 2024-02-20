@@ -1,0 +1,184 @@
+@font-face {
+    font-family: "PyeongChangPeace-Light";
+    font-weight: 700;
+    src: url("./fonts/PyeongChangPeace-Light.ttf") format("truetype");
+  }
+
+@font-face {
+    font-family: 'PyeongChangPeace-Bold';
+    src: url("./fonts/PyeongChangPeace-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'CWDangamAsac-Bold';
+    src: url("./fonts/ChangwonDangamAsac-Bold_0712.ttf") format("truetype");
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url("./fonts/Pretendard-Regular.otf") format("opentype");
+    font-style: normal;
+  }
+
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    font-family: 'Arial', sans-serif;
+}
+
+body{
+  height: 700px;
+}
+
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px; 
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+    margin-top: 6rem;
+  }
+  
+.brand-logo {
+    width: 160px; 
+    margin-right: 1rem; 
+  }
+  
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.tagline {
+    font-size: 1.2rem; 
+    color: #666;
+    margin-bottom: 0.25rem; 
+  }
+  
+.title {
+    font-size: 3rem; 
+    color: #333;
+    margin: 0;
+    font-family: 'CWDangamAsac-Bold';
+   
+  }
+  
+.search-box {
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    width: 90%; 
+    font-size: 1.0rem; 
+    border-radius: 5px; 
+    border: 2px solid #ddd; 
+    padding-left: 50px; 
+    max-width: 800px; 
+    margin-bottom: 2rem;
+  }
+
+.search-box input {
+    flex-grow: 1; 
+    padding: 13px;
+    border: none; 
+    font-size: 1.0rem; 
+    border-radius: 5px; 
+  }
+
+.search-box.error .input-text {
+    border: 2px solid red; 
+  }
+
+.error-message {
+    color: red; 
+    background-color: #ffdada; 
+    border: 1px solid red; 
+    padding: 5px;
+    border-radius: 5px; 
+    font-size: 0.9rem; 
+    margin-bottom: 2rem;
+  }
+  
+.search-icon {
+    position: absolute;
+    left: 13px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    font-size: 1.5rem;
+    color: #454343;
+  }
+
+input[type="text"] {
+    flex-grow: 1; 
+    padding-right: 40px;
+  }
+
+.send-button {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    font-size: 1rem;
+    padding: 5px;
+    margin-right: 6px;
+    color: white;
+    border-radius: 5px;
+    background-color: black;
+    font-family: 'Pretendard-Regular';
+  }
+
+.yes24-link {
+    font-size: 1.0rem; 
+    color: #1a73e8;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+ 
+@media (max-width: 768px) {
+.header {
+    flex-direction: column; 
+}
+
+.brand-logo {
+    width: 120px; 
+    margin-bottom: 1rem; 
+}
+
+.title {
+    font-size: 2.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem; 
+}
+
+.input-box {
+    font-size: 0.9rem;
+}
+
+.search-icon {
+    font-size: 1.2rem;
+}
+
+.yes24-link {
+    font-size: 0.9rem;
+}
+}
+
