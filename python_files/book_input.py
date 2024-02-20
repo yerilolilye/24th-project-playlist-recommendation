@@ -9,7 +9,7 @@ from kiwipiepy import Kiwi
 # 크롤링 함수
 def book_crawling(site):
     url = site
-    if url.startswith('https://www.yes24.com'):
+    if 'yes24' in url:
         res = requests.get(url)
         soup = BeautifulSoup(res.content, 'html.parser')
         book_title = soup.find('h2',class_ = 'gd_name' ).text
