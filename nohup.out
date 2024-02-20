@@ -1,48 +1,0 @@
-/mnt/c/Users/yelin/Documents/GitHub/PersonalizedRG/24th-project-playlist-recommendation/./python_files/playlist.py:3: DeprecationWarning: 
-Pyarrow will become a required dependency of pandas in the next major release of pandas (pandas 3.0),
-(to allow more performant data types, such as the Arrow string type, and better interoperability with other libraries)
-but was not found to be installed on your system.
-If this would cause problems for you,
-please provide us feedback at https://github.com/pandas-dev/pandas/issues/54466
-        
-  import pandas as pd
-**** Loading song data ... ****
-**** Loading keyword input ****
-**** Sorting Songs by Clusters ... ****
-  0%|          | 0/962 [00:00<?, ?it/s]100%|██████████| 962/962 [00:00<00:00, 3315464.62it/s]
-**** Sorting completed !!! ****
-**** Random Sampling from each cluster ... ****
-**** random sampling done ****
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 93206.76it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 70690.52it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 86778.70it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 82241.25it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 72315.59it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 80145.94it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 82241.25it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 76260.07it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 67650.06it/s]
-  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:00<00:00, 69905.07it/s]
-****0th cluster selected ****
-  0%|          | 0/200 [00:00<?, ?it/s]100%|██████████| 200/200 [00:00<00:00, 529918.38it/s]
-
-#############################################
-  RECOMMENDED PLAYLIST: 
-
-keywords : christmas love
-                                            track_name  ... predicted_score
-182                                             Way Up  ...        0.983764
-46                                           Bad Blood  ...        0.983521
-49                                             Pompeii  ...        0.983084
-45                                             Pompeii  ...        0.983084
-1                        Jimmy Cooks (feat. 21 Savage)  ...        0.982259
-7                        Jimmy Cooks (feat. 21 Savage)  ...        0.982259
-128                  You Really Got Me - 2015 Remaster  ...        0.977733
-172  Can't Get You out of My Head - Peggy Gou’s Mid...  ...        0.974593
-193                                     American Dream  ...        0.974212
-191                                     American Dream  ...        0.974212
-
-[10 rows x 3 columns]
-
-#############################################
-**** file saved in ./output/playlist ****
