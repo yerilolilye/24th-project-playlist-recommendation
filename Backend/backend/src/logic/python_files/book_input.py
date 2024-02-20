@@ -8,23 +8,22 @@ from kiwipiepy import Kiwi
 
 # 크롤링 함수
 def book_crawling(site):
-    url = site
-    if 'yes24' in url:
-        res = requests.get(url)
-        soup = BeautifulSoup(res.content, 'html.parser')
-        book_title = soup.find('h2',class_ = 'gd_name' ).text
-        book_inside = soup.find('div', {'id': 'infoset_inBook'})
-        book_review = soup.find('div', {'id': 'infoset_pubReivew'})
-        book_intro = soup.find('div', {'id': 'infoset_introduce'})
-        if book_inside is not None:
-            book_text = book_inside.find('div', {'class': 'infoWrap_txt'}).text
-        elif book_review is not None:
-            book_text = book_review.find('div', {'class': 'infoWrap_txt'}).text
-        elif book_intro is not None:
-            book_text = book_intro.find('div', {'class': 'infoWrap_txt'}).text
-        else:
-            True
-        book_text = re.sub(r'\n|\r|\t', '', book_text)
+    url = "https://www.yes24.com/Product/Goods/" + site.split('/')[-1]
+    res = requests.get(url)
+    soup = BeautifulSoup(res.content, 'html.parser')
+    book_title = soup.find('h2',class_ = 'gd_name' ).text
+    book_inside = soup.find('div', {'id': 'infoset_inBook'})
+    book_review = soup.find('div', {'id': 'infoset_pubReivew'})
+    book_intro = soup.find('div', {'id': 'infoset_introduce'})
+    if book_inside is not None:
+        book_text = book_inside.find('div', {'class': 'infoWrap_txt'}).text
+    elif book_review is not None:
+        book_text = book_review.find('div', {'class': 'infoWrap_txt'}).text
+    elif book_intro is not None:
+        book_text = book_intro.find('div', {'class': 'infoWrap_txt'}).text
+    else:
+        True
+    book_text = re.sub(r'\n|\r|\t', '', book_text)
 
     return book_text, book_title
 
